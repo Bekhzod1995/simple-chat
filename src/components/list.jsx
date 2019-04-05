@@ -5,12 +5,13 @@ import { connect } from 'react-redux';
 class List extends Component{
     
     render(){
+        // console.log("we are in list now: ", this.props.ch);
         this.props.loadChannels();
         return (
-           <ul>
+            <ul>
                <li>{this.props.ch1}</li>
                <li>{this.props.ch2}</li>
-           </ul>
+            </ul>
         );
     }
 }
