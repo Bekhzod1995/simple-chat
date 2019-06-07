@@ -5,20 +5,18 @@ import { connect } from 'react-redux';
 class List extends Component{
     
     render(){
-        // console.log("we are in list now: ", this.props.ch);
-        this.props.loadChannels();
         return (
             <ul>
-               <li>{this.props.ch1}</li>
-               <li>{this.props.ch2}</li>
+               {this.props.ch.channels.map((element, key) => {
+                   return <li key={key}>{element.name}</li>;
+               })}
             </ul>
         );
     }
 }
 
 const mapStateToProps = (state) => ({
-    ch1: state.ch1,
-    ch2: state.ch2
+    ch: state.ch
 });
 
 export default connect(mapStateToProps, actionCreators)(List);
