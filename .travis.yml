@@ -1,0 +1,19 @@
+langauge: node_js
+node_js: 
+- v10.16.0
+cache: npm 
+
+install: 
+- npm ci
+
+script:
+- npm test
+- npm run build
+
+deploy:
+  provider: pages
+  skip-cleanup: true
+  github-token: $GITHUB_TOKEN
+  on: 
+    branch: gh-pages
+    
