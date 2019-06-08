@@ -1,27 +1,21 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../assets/application.css';
 import ReactDOM from 'react-dom';
-import { Provider } from 'react-redux';
-import React from 'react';
-import List from './components/list';
-import handles from './reducers/';
 import { createStore } from 'redux';
-import { loadChannels } from './actions';
-// import store from './store';
-// import faker from 'faker';
+import handles from './reducers/index';
+import app from './app';
 // import gon from 'gon';
+// import faker from 'faker';
 // import cookies from 'js-cookie';
 // import io from 'socket.io-client';
-
-
-
 if (process.env.NODE_ENV !== 'production') {
   localStorage.debug = 'chat:*';
 }
-
-const store = createStore(handles,
+/* eslint-disable */
+const store = createStore(handles, 
   window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
 
-store.dispatch(loadChannels());
+/* eslint-enable */
 
-ReactDOM.render(<Provider store={store}><List /></Provider>, document.getElementById('chat'));
+
+ReactDOM.render(app(store), document.getElementById('chat'));
