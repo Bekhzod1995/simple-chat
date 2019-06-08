@@ -1,17 +1,16 @@
-langauge: node_js
-node_js: 
-- "stable"
+language: node_js
+node_js:
+  - "stable"
 cache:
   directories:
-  - node_modules 
-  
+  - node_modules
 script:
-- npm test
-- npm run build
-
+  - npm test
+  - npm run build
 deploy:
   provider: pages
-  skip-cleanup: true
-  github-token: $GITHUB_TOKEN
-  on: 
+  skip_cleanup: true
+  github_token: $github_token
+  local_dir: build
+  on:
     branch: master
