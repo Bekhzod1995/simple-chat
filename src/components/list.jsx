@@ -14,9 +14,7 @@ class List extends Component {
     const { channel } = this.props;
     return (
       <ul>
-        {channel.map((element) => {
-          return (<li key={element.id}>{element.name}</li>);
-        })}
+        {channel.map(element => <li key={element.id}>{element.name}</li>)}
       </ul>
     );
   }
