@@ -10,8 +10,6 @@
     "node": "9"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "test": "jest",
     "build-server": "babel server --out-dir dist --source-maps inline",
     "build-app": "npx webpack -p --env production",
     "build": "npm run build-app && npm run build-server",
