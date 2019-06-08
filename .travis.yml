@@ -1,7 +1,9 @@
 langauge: node_js
 node_js: 
-- v10.16.0
-cache: npm 
+- "stable"
+cache:
+  directories:
+  - node_modules 
 
 install: 
 - npm ci
@@ -15,5 +17,4 @@ deploy:
   skip-cleanup: true
   github-token: $GITHUB_TOKEN
   on: 
-    branch: gh-pages
-    
+    branch: master
