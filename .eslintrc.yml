@@ -2,7 +2,7 @@
 
 extends:
   - airbnb
-  - "plugin:jest/recommended"
+  # - "plugin:jest/recommended"
   - "plugin:react/recommended"
   
 
@@ -11,13 +11,13 @@ parser: babel-eslint
 env:
   browser: true
   node: true
-  jest: true
 
 rules:
   import/no-unresolved: 0
   import/extensions: 0
   react/prop-types: 0
   react/prefer-stateless-function: [0, { "ignorePureComponents": true }] #Ya dobavil--> v list.jsx pishet wto Class list doljen bit funkciey
-  linebreak-style: ["error", "windows"] 
+  linebreak-style: 0
+  no-console: 0
   
   
