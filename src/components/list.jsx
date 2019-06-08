@@ -1,22 +1,25 @@
 import React, { Component } from 'react';
-import * as actionCreators from '../actions/'
 import { connect } from 'react-redux';
+import * as actionCreators from '../actions';
 
-class List extends Component{
-    
-    render(){
-        return (
-            <ul>
-               {this.props.ch.channels.map((element, key) => {
-                   return <li key={key}>{element.name}</li>;
-               })}
-            </ul>
-        );
-    }
-}
 
-const mapStateToProps = (state) => ({
-    ch: state.ch
+const mapStateToProps = state => ({
+  channel: state.kanali.channels,
 });
 
-export default connect(mapStateToProps, actionCreators)(List);
+
+@connect(mapStateToProps, actionCreators)
+class List extends Component {
+  render() {
+    const { channel } = this.props;
+    return (
+      <ul>
+        {channel.map((element) => {
+          return (<li key={element.id}>{element.name}</li>);
+        })}
+      </ul>
+    );
+  }
+}
+
+export default List;
