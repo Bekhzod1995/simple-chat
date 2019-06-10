@@ -1,10 +1,4 @@
-import gon from 'gon';
-
-const initialValue = {
-  kanali: gon,
-};
-
-const handles = (state = initialValue, action) => {
+const handles = (state, action) => {
   switch (action.type) {
     // case LOAD_CHANNELS:
     //   return {
