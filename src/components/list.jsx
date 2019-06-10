@@ -4,7 +4,7 @@ import * as actionCreators from '../actions';
 
 
 const mapStateToProps = state => ({
-  channel: state.kanali.channels,
+  channel: state.channelsFromGon.channels,
 });
 
 
@@ -13,9 +13,11 @@ class List extends Component {
   render() {
     const { channel } = this.props;
     return (
-      <ul>
-        {channel.map(element => <li key={element.id}>{element.name}</li>)}
-      </ul>
+      <div>
+        <ul>
+          {channel.map(element => (<li key={element.id}>{element.name}</li>))}
+        </ul>
+      </div>
     );
   }
 }
