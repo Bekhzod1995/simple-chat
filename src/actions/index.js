@@ -5,4 +5,3 @@
 //     return {type: LOAD_CHANNELS, payload: window.gon}
 // }
 // import { createAction, handleAction } from 'redux-actions';
-
