@@ -4,7 +4,7 @@ import * as actionCreators from '../actions';
 
 
 const mapStateToProps = state => ({
-  channel: state.channelsFromGon.channels,
+  channel: state.channels.channels,
 });
 
 

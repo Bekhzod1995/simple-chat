@@ -1,7 +1,5 @@
-// export const LOAD_CHANNELS = 'LOAD_CHANNELS';
+import { createAction } from 'redux-actions';
 
-// export const loadChannels = () => {
-//     console.log("In actions: ", window.gon);
-//     return {type: LOAD_CHANNELS, payload: window.gon}
-// }
-// import { createAction, handleAction } from 'redux-actions';
+export const postMessage = createAction('MESSAGE_POST');
+export const removeMessage = createAction('MESSAGE_REMOVE');
+export const getMessage = createAction('MESSAGE_GET');
