@@ -1,6 +1,6 @@
 import React from 'react';
 import { Field, reduxForm, submit } from 'redux-form';
-// import { Jumbotron, Card } from 'react-bootstrap';
+import { Button } from 'react-bootstrap';
 
 
 const Form = (props) => {
@@ -8,7 +8,7 @@ const Form = (props) => {
   return (
     <form onSubmit={handleSubmit} onChange={e => e.preventDefault}>
       <Field name="text" component="input" type="text" />
-      <button type="submit">Submit</button>
+      <Button variant="info" type="submit">Submit</Button>
     </form>
   );
 };
