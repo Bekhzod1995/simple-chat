@@ -1,14 +1,18 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../assets/application.css';
 import React from 'react';
-import { createStore, combineReducers } from 'redux';
+import {
+  createStore,
+  applyMiddleware,
+  compose,
+} from 'redux';
 import faker from 'faker';
-import { reducer as formReducer } from 'redux-form';
 import cookies from 'js-cookie';
 import gon from 'gon';
+import thunk from 'redux-thunk';
 import io from 'socket.io-client';
 import { getMessage } from './actions';
-import messages from './reducers';
+import rootReducer from './reducers';
 import app from './app';
 
 
@@ -18,7 +22,6 @@ if (process.env.NODE_ENV !== 'production') {
 
 let randomName;
 
-console.log('This is gon in the beginning: ', gon);
 
 if (!(cookies.get('username'))) {
   randomName = faker.name.findName();
@@ -29,27 +32,26 @@ const MyContext = React.createContext();
 
 
 const initialValue = {
-  messages: gon.messages,
+  messages: {
+    message: [...gon.messages],
+  },
   // channels: gon.channels,
 };
 
-const rootReducer = combineReducers({
-  messages,
-  form: formReducer,
-  // handle
-});
-
 
 /* eslint-disable */
-const store = createStore(rootReducer, initialValue,
-  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+const store = createStore(rootReducer, initialValue, composeEnhancers(applyMiddleware(thunk)));
 
 /* eslint-enable */
-
+// const store = createStore(
+//   rootReducer,
+//   initialValue,
+//     applyMiddleware(thunk),
+// );
 const socket = io();
 socket.on('newMessage', (text) => {
-  console.log('This is text Im sending: ', text.data.attributes);
-  store.dispatch(getMessage(text));
+  store.dispatch(getMessage(text.data.attributes));
 });
 
 // getContext(MyContext);

@@ -1,37 +1,26 @@
 import React, { Component } from 'react';
-import { Card } from 'react-bootstrap';
+import { Container } from 'react-bootstrap';
 import { connect } from 'react-redux';
-// import cookies from 'js-cookie';
-
-// import gon from 'gon';
 import * as actionCreators from '../../actions';
 
 const mapStateToProps = state => ({
-  archive: state.messages,
+  messageArchive: state.messages.message,
+
 });
 
 @connect(mapStateToProps, actionCreators)
 class ChatView extends Component {
   render() {
-    const { archive } = this.props;
+    const { messageArchive } = this.props;
     return (
-      <Card style={{ width: '40rem', height: '35rem' }}>
-        <Card.Body>
-          {/* { console.log('This is archive: ', this.props.data) } */}
-          { console.log('This is state: ', archive) }
-          <div>
-            { archive.map((el) => {
-              if (el.username === undefined) {
-                return '';
-              }
-              return (
-                <p key={el.id}>
-                  {`${el.username} : ${el.message}`}
-                </p>);
-            })}
-          </div>
-        </Card.Body>
-      </Card>
+      <Container style={{ border: '1px solid #17a2b8', height: '80vh', overflow: 'auto' }}>
+        {messageArchive.map((el) => {
+          if (el.message !== undefined) {
+            return <p key={el.id}>{`${el.username} : ${el.message}`}</p>;
+          }
+          return '';
+        })}
+      </Container>
     );
   }
 }

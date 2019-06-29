@@ -1,22 +1,47 @@
 import { createAction } from 'redux-actions';
 import axios from 'axios';
-import cookies from 'js-cookie';
+
+export const postMessageSuccess = createAction('MESSSAGE_POST_SUCCESS');
 
 export const removeMessage = createAction('MESSAGE_REMOVE');
 export const getMessage = createAction('MESSAGE_GET');
 
-export const postMessage = createAction(
-  'MESSAGE_POST',
-  (body) => {
-    axios.post('/api/v1/channels/1/messages', {
+export const postMessageRequest = createAction('MESSAGE_POST_REQUEST');
+
+export const postMessageFailure = createAction('MESSAGE_POST_FAILED');
+
+export const postMessage = userAndtext => async (dispatch) => {
+  dispatch(postMessageRequest());
+  try {
+    await axios.post('/api/v1/channels/1/messages', {
       data: {
         attributes: {
-          message: body.text,
-          username: cookies.get('username'),
+          message: userAndtext.text,
+          username: userAndtext.user,
         },
       },
     })
-      .then(response => console.log('This is post: ', response.data.data.attributes.message));
-    return [{ message: body.text, username: cookies.get('username') }];
-  },
-);
+      .then(dispatch(postMessageSuccess(userAndtext)));
+  } catch (e) {
+    console.log('This is error', e);
+    dispatch(postMessageFailure());
+  }
+  return userAndtext;
+};
+
+
+// export const postMessage = createAction(
+//   'MESSAGE_POST',
+//   (body) => {
+//     axios.post('/api/v1/channels/1/messages', {
+//       data: {
+//         attributes: {
+//           message: body.text,
+//           username: cookies.get('username'),
+//         },
+//       },
+//     })
+//       .then();
+//     return [{ message: body.text, username: cookies.get('username') }];
+//   },
+// );

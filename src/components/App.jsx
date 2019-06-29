@@ -13,11 +13,13 @@ class App extends Component {
         <context.Consumer>
           {
             username => (
-              <p>{username}</p>
+              <div>
+                <p>{username}</p>
+                <FormPage user={username} />
+              </div>
             )
           }
         </context.Consumer>
-        <FormPage />
       </React.Fragment>
     );
   }
