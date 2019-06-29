@@ -33,7 +33,6 @@ const afterSubmit = (result, dispatch) => dispatch(reset('chat'));
 const Form = (props) => {
   const { handleSubmit } = props;
   const { statusValue } = props;
-  console.log('This is statusValue', statusValue);
   return (
     <form onSubmit={handleSubmit} onChange={e => e.preventDefault}>
       <Field name="text" type="text" component={Input} props={statusValue} />
