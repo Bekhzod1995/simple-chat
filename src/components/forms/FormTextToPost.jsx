@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import * as actionCreators from '../../actions';
-import Form from './SendingValue';
+import Form from './SendingValueToForm';
 
 
 const mapStateToProps = state => ({
@@ -12,17 +12,19 @@ const mapStateToProps = state => ({
 @connect(mapStateToProps, actionCreators)
 class FormPage extends Component {
   submit = (values) => {
-    // console.log('Status: ', this.props.status);
     const { user } = this.props;
     const { postMessage } = this.props;
-    postMessage({ ...values, user });
+    const { status } = this.props;
+    console.log('THis is status', status);
+    if ((status === 'received') || (status === null)) {
+      postMessage({ ...values, user });
+    }
   };
-
 
   render() {
     const { status } = this.props;
     return (
-      <Form onSubmit={this.submit} statusValue={{ status }} />
+      <Form onSubmit={this.submit} statusValue={status} />
     );
   }
 }

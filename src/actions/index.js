@@ -21,12 +21,11 @@ export const postMessage = userAndtext => async (dispatch) => {
         },
       },
     })
-      .then(dispatch(postMessageSuccess(userAndtext)));
+      .then();
+    dispatch(postMessageSuccess(userAndtext));
   } catch (e) {
-    console.log('This is error', e);
     dispatch(postMessageFailure());
   }
-  return userAndtext;
 };
 
 

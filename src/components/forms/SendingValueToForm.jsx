@@ -9,21 +9,20 @@ import { Button, InputGroup, FormControl } from 'react-bootstrap';
 
 
 const getStatus = (status) => {
-  if (status.status !== 'pending') {
+  if (((status === 'received') || (status === null)) && (status !== 'failed')) {
     return <Button variant="info" type="submit">Submit</Button>;
   }
-  return <Button variant="warning" type="submit" disabled>Pending...</Button>;
+  return <Button variant="info" type="submit" disabled>Submit</Button>;
 };
 
-const Input = ({ input }, props) => (
+const Input = props => (
   <InputGroup className="mb-3">
     <FormControl
       placeholder="Type message..."
-      {...input}
-
+      {...props.input}
     />
     <InputGroup.Append>
-      {getStatus(props)}
+      {getStatus(props.statusValue)}
     </InputGroup.Append>
   </InputGroup>
 );
@@ -33,9 +32,10 @@ const afterSubmit = (result, dispatch) => dispatch(reset('chat'));
 const Form = (props) => {
   const { handleSubmit } = props;
   const { statusValue } = props;
+  // console.log('We are in form', statusValue);
   return (
     <form onSubmit={handleSubmit} onChange={e => e.preventDefault}>
-      <Field name="text" type="text" component={Input} props={statusValue} />
+      <Field name="text" type="text" component={Input} props={{ statusValue }} />
     </form>
   );
 };

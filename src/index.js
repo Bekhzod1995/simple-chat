@@ -34,6 +34,7 @@ const MyContext = React.createContext();
 const initialValue = {
   messages: {
     message: [...gon.messages],
+    status: null,
   },
   // channels: gon.channels,
 };
@@ -44,15 +45,9 @@ const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const store = createStore(rootReducer, initialValue, composeEnhancers(applyMiddleware(thunk)));
 
 /* eslint-enable */
-// const store = createStore(
-//   rootReducer,
-//   initialValue,
-//     applyMiddleware(thunk),
-// );
 const socket = io();
 socket.on('newMessage', (text) => {
   store.dispatch(getMessage(text.data.attributes));
 });
 
-// getContext(MyContext);
 app(store, MyContext);

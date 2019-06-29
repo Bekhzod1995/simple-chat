@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-// import gon from 'gon';
-import FormPage from './forms/ReceivedValue';
+import FormPage from './forms/FormTextToPost';
 import ChatView from './layouts/ChatView';
 
 
