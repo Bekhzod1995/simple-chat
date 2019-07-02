@@ -30,11 +30,13 @@ if (!(cookies.get('username'))) {
 
 const MyContext = React.createContext();
 
-
 const initialValue = {
   messages: {
     message: [...gon.messages],
     status: null,
+    links: {
+      postMessageLink: '/api/v1/channels/1/messages',
+    },
   },
   // channels: gon.channels,
 };
@@ -50,4 +52,6 @@ socket.on('newMessage', (text) => {
   store.dispatch(getMessage(text.data.attributes));
 });
 
-app(store, MyContext);
+const username = cookies.get('username');
+
+app(store, MyContext, username);

@@ -5,22 +5,24 @@ import * as actions from '../actions';
 
 
 const messages = handleActions({
-  [actions.postMessage]() {
-  },
   [actions.getMessage](state, body) {
+    const { message } = state;
+    const { payload } = body;
     return {
       ...state,
-      message: [...state.message, body.payload],
+      message: [...message, payload],
     };
   },
   [actions.postMessageRequest](state) {
     return { ...state, status: 'pending' };
   },
   [actions.postMessageSuccess](state, body) {
+    const { message } = state;
+    const { payload } = body;
     return {
       ...state,
       status: 'received',
-      message: [...state.message, body.payload],
+      message: [...message, payload],
     };
   },
   [actions.postMessageFailure](state) {

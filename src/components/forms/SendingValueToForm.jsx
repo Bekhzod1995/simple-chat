@@ -3,16 +3,19 @@ import {
   Field,
   reduxForm,
   submit,
-  reset,
 } from 'redux-form';
 import { Button, InputGroup, FormControl } from 'react-bootstrap';
 
-
+/* eslint-disable */
 const getStatus = (status) => {
-  if (((status === 'received') || (status === null)) && (status !== 'failed')) {
-    return <Button variant="info" type="submit">Submit</Button>;
+  switch (status) {
+    case 'failed':
+      return <Button variant="danger" type="submit" disabled>Failed</Button>;
+    case 'pending':
+      return <Button variant="warning" type="submit" disabled>Pending...</Button>;
+    default:
+      return <Button variant="info" type="submit">Submit</Button>;
   }
-  return <Button variant="info" type="submit" disabled>Submit</Button>;
 };
 
 const Input = props => (
@@ -27,14 +30,14 @@ const Input = props => (
   </InputGroup>
 );
 
-const afterSubmit = (result, dispatch) => dispatch(reset('chat'));
+/* eslint-enable */
+
+// const afterSubmit = (result, dispatch) => dispatch(reset('chat'));
 
 const Form = (props) => {
-  const { handleSubmit } = props;
-  const { statusValue } = props;
-  // console.log('We are in form', statusValue);
+  const { handleSubmit, statusValue, reset } = props;
   return (
-    <form onSubmit={handleSubmit} onChange={e => e.preventDefault}>
+    <form onSubmit={handleSubmit} autoComplete="off">
       <Field name="text" type="text" component={Input} props={{ statusValue }} />
     </form>
   );
@@ -44,5 +47,5 @@ export default reduxForm({
   // a unique name for the form
   form: 'chat',
   onSubmit: submit,
-  onSubmitSuccess: afterSubmit,
+  // onSubmitSuccess: afterSubmit,
 })(Form);

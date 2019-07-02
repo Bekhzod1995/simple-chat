@@ -7,18 +7,14 @@ import Form from './SendingValueToForm';
 const mapStateToProps = state => ({
   value: state.form.contact,
   status: state.messages.status,
+  postMessageLink: state.messages.links.postMessageLink,
 });
 
 @connect(mapStateToProps, actionCreators)
 class FormPage extends Component {
   submit = (values) => {
-    const { user } = this.props;
-    const { postMessage } = this.props;
-    const { status } = this.props;
-    console.log('THis is status', status);
-    if ((status === 'received') || (status === null)) {
-      postMessage({ ...values, user });
-    }
+    const { user, postMessage, postMessageLink } = this.props;
+    postMessage({ ...values, user }, postMessageLink);
   };
 
   render() {
