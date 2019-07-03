@@ -6,6 +6,17 @@ export const removeMessage = createAction('MESSAGE_REMOVE');
 export const getMessage = createAction('MESSAGE_GET');
 export const postMessageRequest = createAction('MESSAGE_POST_REQUEST');
 export const postMessageFailure = createAction('MESSAGE_POST_FAILED');
+// export const fetchDataFromServer = createAction(
+//   'DATA_FETCH',
+//   link => axios.post(link, {
+//     data: {
+//       attributes: {
+//         message: link.text,
+//         username: link.user,
+//       },
+//     },
+//   }),
+// );
 export const postMessage = (userAndtextAndlink, postMessageLink) => async (dispatch) => {
   dispatch(postMessageRequest());
   try {
