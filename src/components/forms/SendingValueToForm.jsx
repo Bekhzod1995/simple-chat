@@ -6,9 +6,10 @@ import {
 } from 'redux-form';
 import { Button, InputGroup, FormControl } from 'react-bootstrap';
 
+
 /* eslint-disable */
-const getStatus = (status) => {
-  switch (status) {
+const getStatus = (props) => {
+  switch (props.statusValue) {
     case 'failed':
       return <Button variant="danger" type="submit" disabled>Failed</Button>;
     case 'pending':
@@ -23,9 +24,10 @@ const Input = props => (
     <FormControl
       placeholder="Type message..."
       {...props.input}
+      
     />
     <InputGroup.Append>
-      {getStatus(props.statusValue)}
+      {getStatus(props)}
     </InputGroup.Append>
   </InputGroup>
 );
@@ -35,10 +37,14 @@ const Input = props => (
 // const afterSubmit = (result, dispatch) => dispatch(reset('chat'));
 
 const Form = (props) => {
-  const { handleSubmit, statusValue, reset } = props;
+  const {
+    handleSubmit,
+    statusValue,
+    reset,
+  } = props;
   return (
     <form onSubmit={handleSubmit} autoComplete="off">
-      <Field name="text" type="text" component={Input} props={{ statusValue }} />
+      <Field name="text" type="text" component={Input} props={{ statusValue }} reset={reset} />
     </form>
   );
 };

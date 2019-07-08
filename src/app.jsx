@@ -2,17 +2,18 @@ import { Provider } from 'react-redux';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './components/App';
+import ContextForUserName from './components/forms/Context';
 // import MyProvider from './context/MyProvider';
 // import getUsername from './components/forms/UserNameContainer';
 
 const rootElement = document.getElementById('chat');
 
-const app = (store, MyContext, username) => {
+const app = (store, username) => {
   ReactDOM.render(
     <Provider store={store}>
-      <MyContext.Provider value={{ username, MyContext }}>
+      <ContextForUserName.Provider value={username}>
         <App />
-      </MyContext.Provider>
+      </ContextForUserName.Provider>
     </Provider>,
     rootElement,
   );

@@ -29,7 +29,7 @@ if (!(cookies.get('username'))) {
   cookies.set('username', randomName);
 }
 
-const MyContext = React.createContext();
+// const MyContext = React.createContext();
 
 const initialValue = {
   messages: {
@@ -55,4 +55,4 @@ socket.on('newMessage', (text) => {
 
 const username = cookies.get('username');
 
-app(store, MyContext, username);
+app(store, username);

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import * as actionCreators from '../../actions';
 import Form from './SendingValueToForm';
+import getUsername from './UserNameContainer';
 
 
 const mapStateToProps = state => ({
@@ -13,8 +14,8 @@ const mapStateToProps = state => ({
 @connect(mapStateToProps, actionCreators)
 class FormPage extends Component {
   submit = (values) => {
-    const { user, postMessage, postMessageLink } = this.props;
-    postMessage({ ...values, user }, postMessageLink);
+    const { userName, postMessage, postMessageLink } = this.props;
+    postMessage({ ...values, userName }, postMessageLink);
   };
 
   render() {
@@ -26,4 +27,4 @@ class FormPage extends Component {
 }
 
 
-export default FormPage;
+export default getUsername(FormPage);
