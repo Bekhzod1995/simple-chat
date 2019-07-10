@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import FormPage from './forms/FormTextToPost';
 import ChatView from './layouts/ChatView';
-import getUsername from './forms/UserNameContainer';
+import getUsername from './UserNameContainer';
 
 @getUsername
 class App extends Component {

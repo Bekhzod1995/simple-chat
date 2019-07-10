@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import * as actionCreators from '../../actions';
 import Form from './SendingValueToForm';
-import getUsername from './UserNameContainer';
+import getUsername from '../UserNameContainer';
 
 
 const mapStateToProps = state => ({

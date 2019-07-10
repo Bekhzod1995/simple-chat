@@ -6,22 +6,17 @@ export const removeMessage = createAction('MESSAGE_REMOVE');
 export const getMessage = createAction('MESSAGE_GET');
 export const postMessageRequest = createAction('MESSAGE_POST_REQUEST');
 export const postMessageFailure = createAction('MESSAGE_POST_FAILED');
-export const sendDataToServer = createAction(
-  'DATA_FETCH',
-  (userAndtextAndlink, postMessageLink) => axios.post(postMessageLink, {
-    data: {
-      attributes: {
-        message: userAndtextAndlink.text,
-        username: userAndtextAndlink.userName,
-      },
-    },
-  }),
-);
-
 export const postMessage = (userAndtextAndlink, postMessageLink) => async (dispatch) => {
   dispatch(postMessageRequest());
   try {
-    await dispatch(sendDataToServer(userAndtextAndlink, postMessageLink));
+    await axios.post(postMessageLink, {
+      data: {
+        attributes: {
+          message: userAndtextAndlink.text,
+          username: userAndtextAndlink.userName,
+        },
+      },
+    });
     dispatch(postMessageSuccess(userAndtextAndlink));
   } catch (e) {
     dispatch(postMessageFailure());

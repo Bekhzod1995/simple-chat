@@ -2,10 +2,8 @@ import React from 'react';
 import {
   Field,
   reduxForm,
-  submit,
 } from 'redux-form';
 import { Button, InputGroup, FormControl } from 'react-bootstrap';
-
 
 /* eslint-disable */
 const getStatus = (props) => {
@@ -24,7 +22,6 @@ const Input = props => (
     <FormControl
       placeholder="Type message..."
       {...props.input}
-      
     />
     <InputGroup.Append>
       {getStatus(props)}
@@ -32,19 +29,22 @@ const Input = props => (
   </InputGroup>
 );
 
-/* eslint-enable */
-
-// const afterSubmit = (result, dispatch) => dispatch(reset('chat'));
 
 const Form = (props) => {
   const {
     handleSubmit,
-    statusValue,
+    submitSucceeded,
     reset,
+    statusValue,
   } = props;
+
+  if (submitSucceeded) {
+    reset();
+  }
+
   return (
     <form onSubmit={handleSubmit} autoComplete="off">
-      <Field name="text" type="text" component={Input} props={{ statusValue }} reset={reset} />
+      <Field name="text" type="text" statusValue={statusValue} component={Input} placeholder="Type message..." />
     </form>
   );
 };
@@ -52,6 +52,4 @@ const Form = (props) => {
 export default reduxForm({
   // a unique name for the form
   form: 'chat',
-  onSubmit: submit,
-  // onSubmitSuccess: afterSubmit,
 })(Form);
