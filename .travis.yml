@@ -1,9 +1,9 @@
-env:
-  global:
-    - CC_TEST_REPORTER_ID=6586a9d460ab9a0b660988e92c88576c965ffdc286d037f93f7a394f997f2f9f
 language: node_js
 node_js:
   - "stable"
+env:
+  global:
+    - CC_TEST_REPORTER_ID=6586a9d460ab9a0b660988e92c88576c965ffdc286d037f93f7a394f997f2f9f
 cache:
   directories:
   - node_modules
@@ -13,9 +13,9 @@ before_script:
   - ./cc-test-reporter before-build
 script:
   - npx eslint .
+-coverage
 after_script:
-  - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
-
+  - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT 
 deploy:
   provider: pages
   skip_cleanup: true
