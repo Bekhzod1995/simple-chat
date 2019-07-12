@@ -3,7 +3,8 @@ node_js:
   - "stable"
 env:
   global:
-    - CC_TEST_REPORTER_ID=6586a9d460ab9a0b660988e92c88576c965ffdc286d037f93f7a394f997f2f9f
+    - CC_TEST_REPORTER_ID=
+    <776f46577d3b84cf257bdbaaa37004fd5ca2d479c89957b5803d3c6179d6c420>
 cache:
   directories:
   - node_modules
