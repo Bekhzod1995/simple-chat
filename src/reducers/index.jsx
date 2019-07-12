@@ -5,9 +5,8 @@ import * as actions from '../actions';
 
 
 const messages = handleActions({
-  [actions.getMessage](state, body) {
+  [actions.getMessage](state, { payload }) {
     const { messageArchive } = state;
-    const { payload } = body;
     return {
       ...state,
       messageArchive: [...messageArchive, payload],
@@ -16,9 +15,8 @@ const messages = handleActions({
   [actions.postMessageRequest](state) {
     return { ...state, status: 'pending' };
   },
-  [actions.postMessageSuccess](state, body) {
+  [actions.postMessageSuccess](state, { payload }) {
     const { messageArchive } = state;
-    const { payload } = body;
     return {
       ...state,
       status: 'received',

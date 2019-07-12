@@ -14,7 +14,6 @@ import io from 'socket.io-client';
 import { getMessage } from './actions';
 import rootReducer from './reducers';
 import app from './app';
-// import getContext from './components/forms/Context';
 
 
 if (process.env.NODE_ENV !== 'production') {
@@ -28,8 +27,6 @@ if (!(cookies.get('username'))) {
   randomName = faker.name.findName();
   cookies.set('username', randomName);
 }
-
-// const MyContext = React.createContext();
 
 const initialValue = {
   messages: {

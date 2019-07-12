@@ -1,42 +1,37 @@
 import React from 'react';
-import { Spin } from 'antd';
+import {
+  Button,
+  Input,
+} from 'antd';
 import {
   Field,
   reduxForm,
 } from 'redux-form';
-import {
-  Button,
-  InputGroup,
-  FormControl,
-  Alert,
-} from 'react-bootstrap';
 
-/* eslint-disable */
-const getStatus = (props) => {
+const checkMsgStatus = (props) => {
   switch (props.messageStatus) {
     case 'failed':
-      alert('Your message was not send');
-      return <Button variant="info" type="submit">Submit</Button>;
+      return false;
     case 'pending':
-      return <Spin size="large" />;
+      return true;
     default:
-      return <Button variant="info" type="submit">Submit</Button>;
+      return false;
   }
 };
 
-const Input = props => (
-  <InputGroup className="mb-3">
-    <FormControl
-      placeholder="Type message..."
+const textInput = props => (
+  <div>
+    <Input
+      placeholder="Type message ...."
       {...props.input}
+      allowClear
+      disabled={checkMsgStatus(props)}
     />
-    <InputGroup.Append>
-      {getStatus(props)}
-      {/* <Button variant="primary" type="submit" disabled={props.pristine || props.submitting}>Submit</Button> */}
-    </InputGroup.Append>
-  </InputGroup>
-);
 
+    <br />
+    <Button htmlType="submit" type="primary" block loading={checkMsgStatus(props)}>Send</Button>
+  </div>
+);
 
 const Form = (props) => {
   const {
@@ -51,11 +46,10 @@ const Form = (props) => {
   if (submitSucceeded) {
     reset();
   }
-  
-  // <Alert variant={danger}>Your is not delivered</Alert>
+  console.log('We are in input text');
   return (
     <form onSubmit={handleSubmit} autoComplete="off">
-      <Field name="text" type="text" messageStatus={messageStatus} component={Input} placeholder="Type message..." pristine={pristine} submitting={submitting}/>
+      <Field name="text" type="text" messageStatus={messageStatus} component={textInput} placeholder="Type message..." pristine={pristine} submitting={submitting} />
     </form>
   );
 };

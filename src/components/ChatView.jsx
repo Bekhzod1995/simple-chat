@@ -14,7 +14,7 @@ class ChatView extends Component {
   render() {
     const { messageArchive } = this.props;
     return (
-      <Container style={{ border: '1px solid #17a2b8', height: '80vh', overflow: 'auto' }}>
+      <Container style={{ border: '1px solid #1890ff', height: '75vh', overflow: 'auto' }}>
         {messageArchive.map(message => (
           message.message !== undefined
             ? <p key={message.id}>{`${message.username} : ${message.message}`}</p>

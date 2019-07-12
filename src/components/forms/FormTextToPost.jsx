@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { notification } from 'antd';
 import * as actionCreators from '../../actions';
 import Form from './InputText';
 import getUsername from '../UserNameContainer';
@@ -19,6 +20,16 @@ class FormPage extends Component {
 
   render() {
     const { messageStatus } = this.props;
+    if (messageStatus === 'failed') {
+      notification.error({
+        message: 'Message Error',
+        duration: 8,
+        placement: 'bottomRight',
+        bottom: 50,
+        description:
+        'Your text-message was not delivered. Check your connection and Try Again',
+      });
+    }
     return (
       <Form onSubmit={this.submit} messageStatus={messageStatus} />
     );
