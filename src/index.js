@@ -1,5 +1,6 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../assets/application.css';
+import 'antd/dist/antd.css';
 import {
   createStore,
   applyMiddleware,
@@ -32,7 +33,7 @@ if (!(cookies.get('username'))) {
 
 const initialValue = {
   messages: {
-    message: [...gon.messages],
+    messageArchive: [...gon.messages],
     status: null,
     links: {
       postMessageLink: '/api/v1/channels/1/messages',

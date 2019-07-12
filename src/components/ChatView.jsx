@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import { Container } from 'react-bootstrap';
 import { connect } from 'react-redux';
-import * as actionCreators from '../../actions';
+import * as actionCreators from '../actions';
 
 const mapStateToProps = state => ({
-  messageArchive: state.messages.message,
+  messageArchive: state.messages.messageArchive,
+  temp: state,
 
 });
 
@@ -14,7 +15,10 @@ class ChatView extends Component {
     const { messageArchive } = this.props;
     return (
       <Container style={{ border: '1px solid #17a2b8', height: '80vh', overflow: 'auto' }}>
-        {messageArchive.map(el => (el.message !== undefined ? <p key={el.id}>{`${el.username} : ${el.message}`}</p> : ''))}
+        {messageArchive.map(message => (
+          message.message !== undefined
+            ? <p key={message.id}>{`${message.username} : ${message.message}`}</p>
+            : ''))}
       </Container>
     );
   }

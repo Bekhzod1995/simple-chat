@@ -1,17 +1,24 @@
 import React from 'react';
+import { Spin } from 'antd';
 import {
   Field,
   reduxForm,
 } from 'redux-form';
-import { Button, InputGroup, FormControl } from 'react-bootstrap';
+import {
+  Button,
+  InputGroup,
+  FormControl,
+  Alert,
+} from 'react-bootstrap';
 
 /* eslint-disable */
 const getStatus = (props) => {
-  switch (props.statusValue) {
+  switch (props.messageStatus) {
     case 'failed':
-      return <Button variant="danger" type="submit" disabled>Failed</Button>;
+      alert('Your message was not send');
+      return <Button variant="info" type="submit">Submit</Button>;
     case 'pending':
-      return <Button variant="warning" type="submit" disabled>Pending...</Button>;
+      return <Spin size="large" />;
     default:
       return <Button variant="info" type="submit">Submit</Button>;
   }
@@ -25,6 +32,7 @@ const Input = props => (
     />
     <InputGroup.Append>
       {getStatus(props)}
+      {/* <Button variant="primary" type="submit" disabled={props.pristine || props.submitting}>Submit</Button> */}
     </InputGroup.Append>
   </InputGroup>
 );
@@ -35,16 +43,19 @@ const Form = (props) => {
     handleSubmit,
     submitSucceeded,
     reset,
-    statusValue,
+    messageStatus,
+    pristine,
+    submitting,
   } = props;
 
   if (submitSucceeded) {
     reset();
   }
-
+  
+  // <Alert variant={danger}>Your is not delivered</Alert>
   return (
     <form onSubmit={handleSubmit} autoComplete="off">
-      <Field name="text" type="text" statusValue={statusValue} component={Input} placeholder="Type message..." />
+      <Field name="text" type="text" messageStatus={messageStatus} component={Input} placeholder="Type message..." pristine={pristine} submitting={submitting}/>
     </form>
   );
 };

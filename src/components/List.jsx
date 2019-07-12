@@ -4,18 +4,18 @@ import * as actionCreators from '../actions';
 
 
 const mapStateToProps = state => ({
-  channel: state.channels.channels,
+  channels: state.channels.channels,
 });
 
 
 @connect(mapStateToProps, actionCreators)
 class List extends Component {
   render() {
-    const { channel } = this.props;
+    const { channels } = this.props;
     return (
       <div>
         <ul>
-          {channel.map(element => (<li key={element.id}>{element.name}</li>))}
+          {channels.map(channel => (<li key={channel.id}>{channel.name}</li>))}
         </ul>
       </div>
     );

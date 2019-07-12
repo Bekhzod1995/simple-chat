@@ -6,23 +6,23 @@ import * as actions from '../actions';
 
 const messages = handleActions({
   [actions.getMessage](state, body) {
-    const { message } = state;
+    const { messageArchive } = state;
     const { payload } = body;
     return {
       ...state,
-      message: [...message, payload],
+      messageArchive: [...messageArchive, payload],
     };
   },
   [actions.postMessageRequest](state) {
     return { ...state, status: 'pending' };
   },
   [actions.postMessageSuccess](state, body) {
-    const { message } = state;
+    const { messageArchive } = state;
     const { payload } = body;
     return {
       ...state,
       status: 'received',
-      message: [...message, payload],
+      messageArchive: [...messageArchive, payload],
     };
   },
   [actions.postMessageFailure](state) {
@@ -30,8 +30,11 @@ const messages = handleActions({
   },
 }, {
   messages: {
-    message: [],
+    messageArchive: [],
     status: null,
+    // links: {
+    //   postMessageLink: '/api/v1/channels/1/messages',
+    // },
   },
 });
 

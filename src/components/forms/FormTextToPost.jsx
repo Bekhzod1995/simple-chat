@@ -1,13 +1,12 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import * as actionCreators from '../../actions';
-import Form from './SendingValueToForm';
+import Form from './InputText';
 import getUsername from '../UserNameContainer';
 
 
 const mapStateToProps = state => ({
-  value: state.form.contact,
-  status: state.messages.status,
+  messageStatus: state.messages.status,
   postMessageLink: state.messages.links.postMessageLink,
 });
 
@@ -19,9 +18,9 @@ class FormPage extends Component {
   };
 
   render() {
-    const { status } = this.props;
+    const { messageStatus } = this.props;
     return (
-      <Form onSubmit={this.submit} statusValue={status} />
+      <Form onSubmit={this.submit} messageStatus={messageStatus} />
     );
   }
 }
