@@ -1,0 +1,43 @@
+env:
+  global:
+    - CC_TEST_REPORTER_ID=6586a9d460ab9a0b660988e92c88576c965ffdc286d037f93f7a394f997f2f9f
+language: node_js
+node_js:
+  - "stable"
+cache:
+  directories:
+  - node_modules
+before_script:
+  - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+  - chmod +x ./cc-test-reporter
+  - ./cc-test-reporter before-build
+script:
+  - npx eslint .
+after_script:
+  - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
+
+deploy:
+  provider: pages
+  skip_cleanup: true
+  github_token: $GITHUB_TOKEN
+  # local_dir: build
+  on:
+    branch: master
+
+
+
+#     language: node_js
+# node_js:
+#   - "stable"
+# cache:
+#   directories:
+#   - node_modules
+# script:
+#   - npx eslint .
+# deploy:
+#   provider: pages
+#   skip_cleanup: true
+#   github_token: $GITHUB_TOKEN
+#   # local_dir: build
+#   on:
+#     branch: master
