@@ -46,7 +46,6 @@ const Form = (props) => {
   if (submitSucceeded) {
     reset();
   }
-  console.log('We are in input text');
   return (
     <form onSubmit={handleSubmit} autoComplete="off">
       <Field name="text" type="text" messageStatus={messageStatus} component={textInput} placeholder="Type message..." pristine={pristine} submitting={submitting} />

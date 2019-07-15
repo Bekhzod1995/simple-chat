@@ -22,6 +22,7 @@ if (process.env.NODE_ENV !== 'production') {
 
 let randomName;
 
+console.log('this is gon', gon);
 
 if (!(cookies.get('username'))) {
   randomName = faker.name.findName();
@@ -29,14 +30,17 @@ if (!(cookies.get('username'))) {
 }
 
 const initialValue = {
-  messages: {
-    messageArchive: [...gon.messages],
+  messagesHandler: {
+    messages: [...gon.messages],
     status: null,
     links: {
       postMessageLink: '/api/v1/channels/1/messages',
     },
   },
-  // channels: gon.channels,
+  channelHandler: {
+    channels: [...gon.channels],
+    currentChannel: gon.channels[0].name,
+  },
 };
 
 

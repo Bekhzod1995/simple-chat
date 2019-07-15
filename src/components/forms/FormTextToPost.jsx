@@ -7,8 +7,8 @@ import getUsername from '../UserNameContainer';
 
 
 const mapStateToProps = state => ({
-  messageStatus: state.messages.status,
-  postMessageLink: state.messages.links.postMessageLink,
+  messageStatus: state.messagesHandler.status,
+  postMessageLink: state.messagesHandler.links.postMessageLink,
 });
 
 @connect(mapStateToProps, actionCreators)

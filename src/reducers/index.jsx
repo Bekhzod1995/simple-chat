@@ -1,42 +1,41 @@
 import { handleActions } from 'redux-actions';
 import { combineReducers } from 'redux';
 import { reducer as formReducer } from 'redux-form';
+import channelHandler from './channels';
 import * as actions from '../actions';
 
 
-const messages = handleActions({
+const messagesHandler = handleActions({
   [actions.getMessage](state, { payload }) {
-    const { messageArchive } = state;
+    const { messages } = state;
     return {
       ...state,
-      messageArchive: [...messageArchive, payload],
+      messages: [...messages, payload],
     };
   },
   [actions.postMessageRequest](state) {
     return { ...state, status: 'pending' };
   },
   [actions.postMessageSuccess](state, { payload }) {
-    const { messageArchive } = state;
+    const { messages } = state;
     return {
       ...state,
       status: 'received',
-      messageArchive: [...messageArchive, payload],
+      messages: [...messages, payload],
     };
   },
   [actions.postMessageFailure](state) {
     return { ...state, status: 'failed' };
   },
 }, {
-  messages: {
-    messageArchive: [],
+  messagesHandler: {
+    messages: [],
     status: null,
-    // links: {
-    //   postMessageLink: '/api/v1/channels/1/messages',
-    // },
   },
 });
 
 export default combineReducers({
-  messages,
+  messagesHandler,
+  channelHandler,
   form: formReducer,
 });
