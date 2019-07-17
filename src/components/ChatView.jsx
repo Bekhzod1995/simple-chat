@@ -16,7 +16,7 @@ class ChatView extends Component {
     return (
       <Fragment>
         <h4>{`Channel Title: ${currentChannel}`}</h4>
-        <Container style={{ border: '1px solid #1890ff', height: '75vh', overflow: 'auto' }}>
+        <Container style={{ border: '1px solid #1890ff', height: '72vh', overflow: 'auto' }}>
           {messages.map(message => (
             message.message !== undefined
               ? <p key={message.id}>{`${message.username} : ${message.message}`}</p>

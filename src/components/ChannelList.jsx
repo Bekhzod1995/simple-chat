@@ -12,7 +12,7 @@ const mapStateToProps = state => ({
 class List extends Component {
   render() {
     const { channels } = this.props;
-    console.log('THis is channels: ', channels);
+    console.log('THis is channels in List: ', channels);
     return (
       <div style={{ border: '1px solid #1890ff' }}>
         <ul>

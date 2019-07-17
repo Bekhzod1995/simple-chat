@@ -13,6 +13,7 @@ import ChannelOperations from './ChannelOperations';
 @getUsername
 class App extends Component {
   render() {
+    console.log('We are in App');
     const { userName } = this.props;
     return (
       <Container>

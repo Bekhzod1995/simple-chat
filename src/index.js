@@ -12,6 +12,7 @@ import gon from 'gon';
 import thunk from 'redux-thunk';
 import io from 'socket.io-client';
 import { getMessage } from './actions';
+import { getChannel } from './actions/channels';
 import rootReducer from './reducers';
 import app from './app';
 
@@ -54,6 +55,8 @@ const socket = io();
 socket.on('newMessage', (text) => {
   store.dispatch(getMessage(text.data.attributes));
 });
+
+socket.on('newChannel', text => store.dispatch(getChannel(text.data.attributes)));
 
 const username = cookies.get('username');
 

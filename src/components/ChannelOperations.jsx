@@ -1,22 +1,29 @@
 import React, { Component } from 'react';
-// import { connect } from 'react-redux';
+import { connect } from 'react-redux';
 // import ModalWrapper from './ModalWrapper';
-import FormCreateChannel from './forms/channelForm';
-// import * as actionCreators from '../actions/channels';
+// import CreateChannel from './forms/ChannelNameToPost';
+import * as actionCreators from '../actions/channels';
+import CreateChannel from './CreateChannel';
 
-// const mapStateToProps = state => ({
-//   temp: state,
-// });
+const mapStateToProps = state => ({
+  visible: state.channelHandler.visible,
+});
 
-// @connect(null, actionCreators)
-// @ModalWrapper
+@connect(mapStateToProps, actionCreators)
 class ChannelOperations extends Component {
+  handleClick = () => {
+    const { openModal } = this.props;
+    openModal();
+  }
+
   render() {
+    const { visible } = this.props;
     return (
       <div style={{ border: '1px solid #1890ff' }}>
-        <FormCreateChannel />
-        {/* <button type="button">Rename</button> */}
-        {/* <button type="button">Delete</button> */}
+        <button type="button" onClick={this.handleClick}>Create</button>
+        {visible ? <CreateChannel /> : null}
+        <button type="button">Rename</button>
+        <button type="button">Delete</button>
       </div>
     );
   }
