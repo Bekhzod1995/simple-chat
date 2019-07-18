@@ -8,6 +8,16 @@ import {
   reduxForm,
 } from 'redux-form';
 
+const checkCHannelStatus = ({ channelStatus }) => {
+  switch (channelStatus) {
+    case 'failed':
+      return false;
+    case 'pending':
+      return true;
+    default:
+      return false;
+  }
+};
 
 const channelNameInput = props => (
   <div style={{ display: 'flex' }}>
@@ -15,21 +25,24 @@ const channelNameInput = props => (
       placeholder="Type message ...."
       {...props.input}
       allowClear
+      disabled={checkCHannelStatus(props)}
     />
 
-    <Button htmlType="submit" type="primary">Send</Button>
+    <Button htmlType="submit" type="primary" loading={checkCHannelStatus(props)}>Send</Button>
   </div>
 );
 
 const Form = (props) => {
   const {
     handleSubmit,
+    channelStatus,
   } = props;
+  console.log('This is props from input', props);
 
 
   return (
     <form onSubmit={handleSubmit} autoComplete="off">
-      <Field name="channelName" type="text" component={channelNameInput} placeholder="Enter Channel Name..." />
+      <Field name="channelName" type="text" component={channelNameInput} placeholder="Enter Channel Name..." channelStatus={channelStatus} />
     </form>
   );
 };

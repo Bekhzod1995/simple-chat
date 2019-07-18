@@ -8,16 +8,17 @@ const channelHandler = handleActions({
     return {
       ...state,
       channels: [...channels, payload],
+      // channelStatus: 'received',
     };
   },
   [actions.createChannelRequest](state) {
-    return { ...state, status: 'pending' };
+    return { ...state, channelStatus: 'pending' };
   },
-  [actions.createChannelSuccess](state, body) {
-    return { ...state, status: 'received' };
+  [actions.createChannelSuccess](state) {
+    return { ...state, channelStatus: 'received' };
   },
   [actions.createChannelFailure](state) {
-    return { ...state, status: 'failed' };
+    return { ...state, channelStatus: 'failed' };
   },
   [actions.openModal](state) {
     return { ...state, visible: true };
@@ -28,7 +29,7 @@ const channelHandler = handleActions({
 }, {
   channelHandler: {
     channels: [],
-    status: null,
+    channelStatus: null,
   },
 });
 

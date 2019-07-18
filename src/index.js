@@ -42,6 +42,7 @@ const initialValue = {
     channels: [...gon.channels],
     currentChannel: gon.channels[0].name,
     visible: false,
+    channelStatus: null,
   },
 };
 

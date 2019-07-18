@@ -6,41 +6,47 @@ import * as actionCreators from '../../actions/channels';
 // import Form from './InputText';
 
 
-// const mapStateToProps = state => ({
-//   messageStatus: state.messagesHandler.status,
-//   postMessageLink: state.messagesHandler.links.postMessageLink,
-// });
+const mapStateToProps = state => ({
+  channelStatus: state.channelHandler.channelStatus,
+  // postMessageLink: state.messagesHandler.links.postMessageLink,
+});
 
-@connect(null, actionCreators)
+@connect(mapStateToProps, actionCreators)
 class CreateChannelForm extends Component {
-  submit = (channelName) => {
-    const { closeModal, createChannel } = this.props;
-    createChannel(channelName);
-    notification.success({
-      message: 'Channel Success',
-      duration: 3,
-      placement: 'bottomRight',
-      bottom: 50,
-      description:
-          'Channel was created successfully',
-    });
-    closeModal();
+  submit = async (channelName) => {
+    const { closeModal, createChannel, channelStatus } = this.props;
+    await createChannel(channelName);
+    switch (channelStatus) {
+      case 'failed':
+        notification.error({
+          message: 'Channel Creation Error',
+          duration: 3,
+          placement: 'bottomRight',
+          bottom: 50,
+          description:
+              'Your channel was not created. Check your connection and Try Again',
+        });
+        break;
+      case 'received':
+        notification.success({
+          message: 'Channel Created Successfully',
+          duration: 3,
+          placement: 'bottomRight',
+          bottom: 50,
+          description:
+              'Your channel was created successfully',
+        });
+        closeModal();
+        break;
+      default:
+    }
   };
 
   render() {
-    // const { messageStatus } = this.props;
-    // if (messageStatus === 'failed') {
-    //   notification.error({
-    //     message: 'Message Error',
-    //     duration: 8,
-    //     placement: 'bottomRight',
-    //     bottom: 50,
-    //     description:
-    //     'Your text-message was not delivered. Check your connection and Try Again',
-    //   });
-    // }
+    const { channelStatus, closeModal } = this.props;
+    console.log('THis is channelStatus from CreateCHannelFOrm', channelStatus);
     return (
-      <Form onSubmit={this.submit} />
+      <Form onSubmit={this.submit} channelStatus={channelStatus} />
     );
   }
 }
