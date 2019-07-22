@@ -1,21 +1,31 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { notification } from 'antd';
-import * as actionCreators from '../../actions';
+import * as actionCreators1 from '../../actions';
+import * as actionCreators2 from '../../actions/channels';
 import Form from './InputText';
 import getUsername from '../UserNameContainer';
 
 
 const mapStateToProps = state => ({
   messageStatus: state.messagesHandler.status,
-  postMessageLink: state.messagesHandler.links.postMessageLink,
+  channel: state.channelHandler.currentChannel,
 });
 
-@connect(mapStateToProps, actionCreators)
+const mapActionCreatorsToProps = {
+  ...actionCreators1,
+  ...actionCreators2,
+};
+
+@connect(mapStateToProps, mapActionCreatorsToProps)
 class FormPage extends Component {
   submit = (values) => {
-    const { userName, postMessage, postMessageLink } = this.props;
-    postMessage({ ...values, userName }, postMessageLink);
+    const {
+      userName,
+      postMessage,
+      channel,
+    } = this.props;
+    postMessage({ ...values, userName }, `/api/v1/channels/${channel.id}/messages`);
   };
 
   render() {

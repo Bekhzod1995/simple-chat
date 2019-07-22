@@ -37,8 +37,6 @@ const Form = (props) => {
     handleSubmit,
     channelStatus,
   } = props;
-  console.log('This is props from input', props);
-
 
   return (
     <form onSubmit={handleSubmit} autoComplete="off">

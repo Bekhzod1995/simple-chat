@@ -4,32 +4,43 @@ import * as actions from '../actions/channels';
 const channelHandler = handleActions({
   [actions.getChannel](state, { payload }) {
     const { channels } = state;
-    console.log('This is channels in reducer: ', channels);
     return {
       ...state,
       channels: [...channels, payload],
       // channelStatus: 'received',
     };
   },
-  [actions.createChannelRequest](state) {
+  [actions.operationChannelRequest](state) {
     return { ...state, channelStatus: 'pending' };
   },
-  [actions.createChannelSuccess](state) {
+  [actions.operationChannelSuccess](state) {
     return { ...state, channelStatus: 'received' };
   },
-  [actions.createChannelFailure](state) {
+  [actions.operationChannelFailure](state) {
     return { ...state, channelStatus: 'failed' };
   },
-  [actions.openModal](state) {
-    return { ...state, visible: true };
+  [actions.openCreateModal](state) {
+    return { ...state, createModalVisibility: true };
   },
-  [actions.closeModal](state) {
-    return { ...state, visible: false };
+  [actions.closeCreateModal](state) {
+    return { ...state, createModalVisibility: false };
+  },
+  // [actions.openDeleteModal](state) {
+  //   return { ...state, deleteModalVisibility: true };
+  // },
+  // [actions.closeDeleteModal](state) {
+  //   return { ...state, deleteModalVisibility: false };
+  // },
+  [actions.getCurrentChannel](state, { payload }) {
+    return { ...state, currentChannel: payload };
+  },
+  [actions.removeChannel](state, { payload }) {
+    const { removedChannelIds } = state;
+    return { ...state, removedChannelIds: [...removedChannelIds, payload] };
   },
 }, {
   channelHandler: {
     channels: [],
-    channelStatus: null,
   },
 });
 

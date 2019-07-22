@@ -3,18 +3,16 @@ import { connect } from 'react-redux';
 import { notification } from 'antd';
 import Form from './InputChannelName';
 import * as actionCreators from '../../actions/channels';
-// import Form from './InputText';
 
 
 const mapStateToProps = state => ({
   channelStatus: state.channelHandler.channelStatus,
-  // postMessageLink: state.messagesHandler.links.postMessageLink,
 });
 
 @connect(mapStateToProps, actionCreators)
 class CreateChannelForm extends Component {
   submit = async (channelName) => {
-    const { closeModal, createChannel, channelStatus } = this.props;
+    const { closeCreateModal, createChannel, channelStatus } = this.props;
     await createChannel(channelName);
     switch (channelStatus) {
       case 'failed':
@@ -36,15 +34,14 @@ class CreateChannelForm extends Component {
           description:
               'Your channel was created successfully',
         });
-        closeModal();
+        closeCreateModal();
         break;
       default:
     }
   };
 
   render() {
-    const { channelStatus, closeModal } = this.props;
-    console.log('THis is channelStatus from CreateCHannelFOrm', channelStatus);
+    const { channelStatus } = this.props;
     return (
       <Form onSubmit={this.submit} channelStatus={channelStatus} />
     );
