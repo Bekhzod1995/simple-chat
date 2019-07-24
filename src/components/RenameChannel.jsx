@@ -5,26 +5,20 @@ import ChannelForm from './forms/ChannelNameToPost';
 import * as actionCreators from '../actions/channels';
 
 const mapStateToProps = state => ({
-  createModalVisibility: state.channelHandler.createModalVisibility,
+  RenameModalVisibility: state.channelHandler.renameModalVisibility,
 });
 
 @connect(mapStateToProps, actionCreators)
-class CreateChannel extends Component {
-  // close = async () => {
-  //   const { closeModal } = this.props;
-
-  // }
-
+class RenameChannel extends Component {
   render() {
-    const { createModalVisibility, closeModal } = this.props;
+    console.log('we are in RenameChannel');
+    const { RenameModalVisibility, closeModal } = this.props;
     return (
       <Modal
-        title="Create Channel: "
-        visible={createModalVisibility}
+        title="Rename Channel: "
+        visible={RenameModalVisibility}
         footer={null}
         onCancel={() => closeModal()}
-        maskClosable
-        closable
       >
         <ChannelForm />
       </Modal>
@@ -32,4 +26,4 @@ class CreateChannel extends Component {
   }
 }
 
-export default CreateChannel;
+export default RenameChannel;

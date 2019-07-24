@@ -12,7 +12,11 @@ import gon from 'gon';
 import thunk from 'redux-thunk';
 import io from 'socket.io-client';
 import { getMessage } from './actions';
-import { getChannel, removeChannel } from './actions/channels';
+import {
+  getChannel,
+  removeChannel,
+  getRenamedChannel,
+} from './actions/channels';
 import rootReducer from './reducers';
 import app from './app';
 
@@ -41,6 +45,8 @@ const initialValue = {
     visible: false,
     channelStatus: 'received',
     removedChannelIds: [],
+    renamedChannels: [],
+    renamedChannelsIds: [],
   },
 };
 
@@ -52,19 +58,20 @@ const store = createStore(rootReducer, initialValue, composeEnhancers(applyMiddl
 /* eslint-enable */
 const socket = io();
 socket.on('newMessage', (text) => {
-  console.log('this is newMessage', text);
   store.dispatch(getMessage(text.data.attributes));
 });
 
 socket.on('newChannel', (text) => {
-  console.log('this is New channel', text);
   store.dispatch(getChannel(text.data.attributes));
 });
 
 socket.on('removeChannel', (text) => {
-  console.log('this is remove', text);
   store.dispatch(removeChannel(text.data.id));
-  // store.dispatch(getChannel(text.data.attributes));
+});
+
+socket.on('renameChannel', (text) => {
+  console.log('This is renameCHannel: ', text);
+  store.dispatch(getRenamedChannel(text.data.attributes));
 });
 
 const username = cookies.get('username');

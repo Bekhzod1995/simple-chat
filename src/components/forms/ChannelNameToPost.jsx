@@ -7,36 +7,76 @@ import * as actionCreators from '../../actions/channels';
 
 const mapStateToProps = state => ({
   channelStatus: state.channelHandler.channelStatus,
+  modalFor: state.channelHandler.modalFor,
+  renameChannelId: state.channelHandler.renameChannelId,
 });
 
 @connect(mapStateToProps, actionCreators)
-class CreateChannelForm extends Component {
+class ChannelForm extends Component {
   submit = async (channelName) => {
-    const { closeCreateModal, createChannel, channelStatus } = this.props;
-    await createChannel(channelName);
-    switch (channelStatus) {
-      case 'failed':
-        notification.error({
-          message: 'Channel Creation Error',
-          duration: 3,
-          placement: 'bottomRight',
-          bottom: 50,
-          description:
+    const {
+      closeModal,
+      createChannel,
+      channelStatus,
+      modalFor,
+      renameChannel,
+      renameChannelId,
+    } = this.props;
+
+    if (modalFor === 'RenamingChannel') {
+      await renameChannel(channelName, `/api/v1/channels/${renameChannelId}`);
+      switch (channelStatus) {
+        case 'failed':
+          notification.error({
+            message: 'Channel Renaming Error',
+            duration: 3,
+            placement: 'bottomRight',
+            bottom: 50,
+            description:
+              'Your channel was not renamed. Check your connection and Try Again',
+          });
+          break;
+        case 'received':
+          notification.success({
+            message: 'Channel Renamed Successfully',
+            duration: 3,
+            placement: 'bottomRight',
+            bottom: 50,
+            description:
+              'Your channel was renamed successfully',
+          });
+          closeModal();
+          break;
+        default:
+      }
+    }
+
+    if (modalFor === 'CreatingChannel') {
+      await createChannel(channelName, '/api/v1/channels');
+      switch (channelStatus) {
+        case 'failed':
+          notification.error({
+            message: 'Channel Creation Error',
+            duration: 3,
+            placement: 'bottomRight',
+            bottom: 50,
+            description:
               'Your channel was not created. Check your connection and Try Again',
-        });
-        break;
-      case 'received':
-        notification.success({
-          message: 'Channel Created Successfully',
-          duration: 3,
-          placement: 'bottomRight',
-          bottom: 50,
-          description:
+          });
+          break;
+        case 'received':
+          notification.success({
+            message: 'Channel Created Successfully',
+            duration: 3,
+            placement: 'bottomRight',
+            bottom: 50,
+            description:
               'Your channel was created successfully',
-        });
-        closeCreateModal();
-        break;
-      default:
+          });
+          closeModal();
+          break;
+        default:
+      }
     }
   };
 
@@ -48,4 +88,4 @@ class CreateChannelForm extends Component {
   }
 }
 
-export default CreateChannelForm;
+export default ChannelForm;

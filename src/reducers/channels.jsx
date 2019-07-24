@@ -20,10 +20,10 @@ const channelHandler = handleActions({
     return { ...state, channelStatus: 'failed' };
   },
   [actions.openCreateModal](state) {
-    return { ...state, createModalVisibility: true };
+    return { ...state, createModalVisibility: true, modalFor: 'CreatingChannel' };
   },
-  [actions.closeCreateModal](state) {
-    return { ...state, createModalVisibility: false };
+  [actions.closeModal](state) {
+    return { ...state, createModalVisibility: false, renameModalVisibility: false };
   },
   // [actions.openDeleteModal](state) {
   //   return { ...state, deleteModalVisibility: true };
@@ -36,7 +36,26 @@ const channelHandler = handleActions({
   },
   [actions.removeChannel](state, { payload }) {
     const { removedChannelIds } = state;
+    console.log('THis is payload form removeChannel', payload);
     return { ...state, removedChannelIds: [...removedChannelIds, payload] };
+  },
+  [actions.openRenameModal](state, { payload }) {
+    return {
+      ...state,
+      renameModalVisibility: true,
+      modalFor: 'RenamingChannel',
+      renameChannelId: payload,
+    };
+  },
+  [actions.getRenamedChannel](state, { payload }) {
+    const { renamedChannels, renamedChannelsIds } = state;
+    const { id } = payload;
+    console.log('THis is payload form renamedChannels', renamedChannels);
+    return {
+      ...state,
+      renamedChannels: [...renamedChannels, payload],
+      renamedChannelsIds: [...renamedChannelsIds, id],
+    };
   },
 }, {
   channelHandler: {
