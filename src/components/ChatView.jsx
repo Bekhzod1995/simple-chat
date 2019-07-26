@@ -16,10 +16,10 @@ class ChatView extends Component {
     return (
       <Fragment>
         <div className="d-flex justify-content-between">
-          <h6>{`Channel Title: ${currentChannel.name}`}</h6>
+          <h3>{`Channel Title: ***${currentChannel.name}***`}</h3>
           <div><ChannelCreateOperations /></div>
         </div>
-        <Container style={{ border: '1px solid #1890ff', height: '72vh', overflow: 'auto' }}>
+        <Container style={{ border: '1px solid #1890ff', height: '70vh', overflow: 'auto' }}>
           {messages.map((messageArchive) => {
             if (messageArchive.message !== undefined) {
               if (messageArchive.channelId === currentChannel.id) {

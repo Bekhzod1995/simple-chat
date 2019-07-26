@@ -41,12 +41,21 @@ export const renameChannel = ({ channelName }, address) => async (dispatch) => {
 
 export const openCreateModal = createAction('MODAL_CREATE_OPEN');
 export const closeModal = createAction('MODAL_CREATE_CLOSE');
-// export const openDeleteModal = createAction('MODAL_DELETE_OPEN');
-// export const closeDeleteModal = createAction('MODAL_DELETE_CLOSE');
 
-export const deleteChannel = address => () => {
-  axios.delete(address);
+// export const deleteChannel = address => () => {
+//   axios.delete(address);
+// };
+
+export const deleteChannel = address => async (dispatch) => {
+  dispatch(operationChannelRequest());
+  try {
+    await axios.delete(address);
+    dispatch(operationChannelSuccess());
+  } catch (e) {
+    dispatch(operationChannelFailure());
+  }
 };
+
 
 export const openRenameModal = createAction('MODAL_RENAME_OPEN');
 export const getRenamedChannel = createAction('RENAMED_CHANNEL_GET');

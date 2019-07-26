@@ -2,14 +2,6 @@ import { handleActions } from 'redux-actions';
 import * as actions from '../actions/channels';
 
 const channelHandler = handleActions({
-  [actions.getChannel](state, { payload }) {
-    const { channels } = state;
-    return {
-      ...state,
-      channels: [...channels, payload],
-      // channelStatus: 'received',
-    };
-  },
   [actions.operationChannelRequest](state) {
     return { ...state, channelStatus: 'pending' };
   },
@@ -25,12 +17,6 @@ const channelHandler = handleActions({
   [actions.closeModal](state) {
     return { ...state, createModalVisibility: false, renameModalVisibility: false };
   },
-  // [actions.openDeleteModal](state) {
-  //   return { ...state, deleteModalVisibility: true };
-  // },
-  // [actions.closeDeleteModal](state) {
-  //   return { ...state, deleteModalVisibility: false };
-  // },
   [actions.getCurrentChannel](state, { payload }) {
     return { ...state, currentChannel: payload };
   },
@@ -47,14 +33,30 @@ const channelHandler = handleActions({
       renameChannelId: payload,
     };
   },
-  [actions.getRenamedChannel](state, { payload }) {
-    const { renamedChannels, renamedChannelsIds } = state;
-    const { id } = payload;
-    console.log('THis is payload form renamedChannels', renamedChannels);
+  [actions.getChannel](state, { payload }) {
+    const { channels } = state;
     return {
       ...state,
-      renamedChannels: [...renamedChannels, payload],
-      renamedChannelsIds: [...renamedChannelsIds, id],
+      channels: [...channels, payload],
+      // channelStatus: 'received',
+    };
+  },
+  [actions.getRenamedChannel](state, { payload }) {
+    const messages = state.channels.map((channel) => {
+      console.log('This is my current state: ', state.channels);
+      if (channel.id === payload.id) {
+        return {
+          ...payload,
+        };
+      }
+      return {
+        ...channel,
+      };
+    });
+
+    return {
+      ...state,
+      channels: [...messages],
     };
   },
 }, {

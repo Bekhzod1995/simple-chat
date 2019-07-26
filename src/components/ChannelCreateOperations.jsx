@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Button } from 'react-bootstrap';
 import * as actionCreators from '../actions/channels';
 import CreateChannel from './CreateChannel';
 
@@ -17,8 +18,8 @@ class ChannelCreateOperations extends Component {
   render() {
     const { createModalVisibility } = this.props;
     return (
-      <div style={{ border: '1px solid #1890ff' }}>
-        <button type="button" onClick={this.handleClick}>Create Channel</button>
+      <div>
+        <Button variant="success" onClick={this.handleClick}>Create Channel</Button>
         {createModalVisibility ? <CreateChannel /> : null}
       </div>
     );
