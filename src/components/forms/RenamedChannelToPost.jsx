@@ -13,34 +13,35 @@ const mapStateToProps = state => ({
 });
 
 @connect(mapStateToProps, actionCreators)
-class CreateChannelForm extends Component {
+class RenameChannelForm extends Component {
   submit = async (channelName) => {
     const {
       closeModal,
-      createChannel,
       channelStatus,
+      renameChannel,
+      renameChannelId,
     } = this.props;
 
-    await createChannel(channelName, `${link}`);
+    await renameChannel(channelName, `${link}${renameChannelId}`);
     switch (channelStatus) {
       case 'failed':
         notification.error({
-          message: 'Channel Creation Error',
+          message: 'Channel Renaming Error',
           duration: 3,
           placement: 'bottomRight',
           bottom: 50,
           description:
-             'Your channel was not created. Check your connection and Try Again',
+              'Your channel was not renamed. Check your connection and Try Again',
         });
         break;
       case 'received':
         notification.success({
-          message: 'Channel Created Successfully',
+          message: 'Channel Renamed Successfully',
           duration: 3,
           placement: 'bottomRight',
           bottom: 50,
           description:
-              'Your channel was created successfully',
+              'Your channel was renamed successfully',
         });
         closeModal();
         break;
@@ -56,4 +57,4 @@ class CreateChannelForm extends Component {
   }
 }
 
-export default CreateChannelForm;
+export default RenameChannelForm;

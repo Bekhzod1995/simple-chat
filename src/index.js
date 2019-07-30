@@ -27,26 +27,25 @@ if (process.env.NODE_ENV !== 'production') {
 
 let randomName;
 
-console.log('this is gon', gon.channels[0]);
 
 if (!(cookies.get('username'))) {
   randomName = faker.name.findName();
   cookies.set('username', randomName);
 }
 
+
 const initialValue = {
   messagesHandler: {
     messages: [...gon.messages],
-    status: null,
   },
   channelHandler: {
     channels: [...gon.channels],
     currentChannel: gon.channels[0],
-    visible: false,
-    channelStatus: 'received',
     removedChannelIds: [],
-    renamedChannels: [],
-    renamedChannelsIds: [],
+  },
+
+  channelModalHandler: {
+    createModalVisibility: false,
   },
 };
 

@@ -1,20 +1,15 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Modal } from 'antd';
-import ChannelForm from './forms/ChannelNameToPost';
+import CreateChannelForm from './forms/ChannelNameToPost';
 import * as actionCreators from '../actions/channels';
 
 const mapStateToProps = state => ({
-  createModalVisibility: state.channelHandler.createModalVisibility,
+  createModalVisibility: state.channelModalHandler.createModalVisibility,
 });
 
 @connect(mapStateToProps, actionCreators)
 class CreateChannel extends Component {
-  // close = async () => {
-  //   const { closeModal } = this.props;
-
-  // }
-
   render() {
     const { createModalVisibility, closeModal } = this.props;
     return (
@@ -26,7 +21,7 @@ class CreateChannel extends Component {
         maskClosable
         closable
       >
-        <ChannelForm />
+        <CreateChannelForm />
       </Modal>
     );
   }

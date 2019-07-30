@@ -5,6 +5,7 @@ import * as actionCreators1 from '../../actions';
 import * as actionCreators2 from '../../actions/channels';
 import Form from './InputText';
 import getUsername from '../UserNameContainer';
+import link from '../Link';
 
 
 const mapStateToProps = state => ({
@@ -25,7 +26,7 @@ class FormPage extends Component {
       postMessage,
       channel,
     } = this.props;
-    postMessage({ ...values, userName }, `/api/v1/channels/${channel.id}/messages`);
+    postMessage({ ...values, userName }, `${link}${channel.id}/messages`);
   };
 
   render() {

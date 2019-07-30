@@ -5,11 +5,11 @@ import * as actionCreators from '../actions/channels';
 import CreateChannel from './CreateChannel';
 
 const mapStateToProps = state => ({
-  createModalVisibility: state.channelHandler.createModalVisibility,
+  createModalVisibility: state.channelModalHandler.createModalVisibility,
 });
 
 @connect(mapStateToProps, actionCreators)
-class ChannelCreateOperations extends Component {
+class ChannelCreate extends Component {
   handleClick = () => {
     const { openCreateModal } = this.props;
     openCreateModal();
@@ -26,4 +26,4 @@ class ChannelCreateOperations extends Component {
   }
 }
 
-export default ChannelCreateOperations;
+export default ChannelCreate;

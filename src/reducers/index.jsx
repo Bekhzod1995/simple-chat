@@ -3,6 +3,8 @@ import { combineReducers } from 'redux';
 import { reducer as formReducer } from 'redux-form';
 import channelHandler from './channels';
 import * as actions from '../actions';
+import channelRequestHandler from './channelsRequest';
+import channelModalHandler from './channelsModal';
 
 
 const messagesHandler = handleActions({
@@ -19,7 +21,6 @@ const messagesHandler = handleActions({
   [actions.postMessageSuccess](state, { payload }) {
     const { messages } = state;
     return {
-      ...state,
       status: 'received',
       messages: [...messages, payload],
     };
@@ -37,5 +38,7 @@ const messagesHandler = handleActions({
 export default combineReducers({
   messagesHandler,
   channelHandler,
+  channelRequestHandler,
+  channelModalHandler,
   form: formReducer,
 });

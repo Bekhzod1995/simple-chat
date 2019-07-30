@@ -39,8 +39,6 @@ const Form = (props) => {
     submitSucceeded,
     reset,
     messageStatus,
-    pristine,
-    submitting,
   } = props;
 
   if (submitSucceeded) {
@@ -48,7 +46,7 @@ const Form = (props) => {
   }
   return (
     <form onSubmit={handleSubmit} autoComplete="off">
-      <Field name="text" type="text" messageStatus={messageStatus} component={textInput} placeholder="Type message..." pristine={pristine} submitting={submitting} />
+      <Field name="text" type="text" messageStatus={messageStatus} component={textInput} placeholder="Type message..." />
     </form>
   );
 };

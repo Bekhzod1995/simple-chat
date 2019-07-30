@@ -3,8 +3,6 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './components/App';
 import ContextForUserName from './components/Context';
-// import MyProvider from './context/MyProvider';
-// import getUsername from './components/forms/UserNameContainer';
 
 const rootElement = document.getElementById('chat');
 

@@ -3,18 +3,18 @@ import { connect } from 'react-redux';
 import {
   ListGroup,
   Button,
-  Badge,
 } from 'react-bootstrap';
 import { Popconfirm, message } from 'antd';
 import RenameChannel from './RenameChannel';
 import * as actionCreators from '../actions/channels';
+import link from './Link';
 
 
 const mapStateToProps = state => ({
   channels: state.channelHandler.channels,
   removedChannelIds: state.channelHandler.removedChannelIds,
-  renameModalVisibility: state.channelHandler.renameModalVisibility,
-  channelStatus: state.channelHandler.channelStatus,
+  renameModalVisibility: state.channelModalHandler.renameModalVisibility,
+  channelStatus: state.channelRequestHandler.channelStatus,
 });
 
 
@@ -29,23 +29,11 @@ class List extends Component {
   handleRenameClick = (id) => {
     const { openRenameModal } = this.props;
     openRenameModal(id);
-    // console.log('this is a renameModal: ', renameModalVisibility);
   }
 
-  handleDelete = async (id) => {
-    const { deleteChannel, channelStatus } = this.props;
-    await deleteChannel(`/api/v1/channels/${id}`);
-    switch (channelStatus) {
-      case 'pending':
-        break;
-      case 'received':
-        message.success('Channel was deleted successfully');
-        break;
-      case 'failed':
-        message.error('Couldn\'t delete Channel');
-        break;
-      default:
-    }
+  handleDelete = (id) => {
+    const { deleteChannel } = this.props;
+    deleteChannel(`${link}${id}`);
   };
 
   handleCancel = () => {
@@ -79,8 +67,6 @@ class List extends Component {
       removedChannelIds,
       renameModalVisibility,
     } = this.props;
-    // console.log('This is a temp from List: ', TEMP);
-    // console.log('This is a channels from List: ', channels);
     return (
       <div>
         <h3>Channels: </h3>

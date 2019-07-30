@@ -1,26 +1,25 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Modal } from 'antd';
-import ChannelForm from './forms/ChannelNameToPost';
+import RenameChannelForm from './forms/RenamedChannelToPost';
 import * as actionCreators from '../actions/channels';
 
 const mapStateToProps = state => ({
-  RenameModalVisibility: state.channelHandler.renameModalVisibility,
+  renameModalVisibility: state.channelModalHandler.renameModalVisibility,
 });
 
 @connect(mapStateToProps, actionCreators)
 class RenameChannel extends Component {
   render() {
-    console.log('we are in RenameChannel');
-    const { RenameModalVisibility, closeModal } = this.props;
+    const { renameModalVisibility, closeModal } = this.props;
     return (
       <Modal
         title="Rename Channel: "
-        visible={RenameModalVisibility}
+        visible={renameModalVisibility}
         footer={null}
         onCancel={() => closeModal()}
       >
-        <ChannelForm />
+        <RenameChannelForm />
       </Modal>
     );
   }
