@@ -29,7 +29,7 @@ const textInput = props => (
     />
 
     <br />
-    <Button htmlType="submit" type="primary" block loading={checkMsgStatus(props)}>Send</Button>
+    <Button htmlType="submit" type="primary" block disabled={props.meta.pristine} loading={checkMsgStatus(props)}>Send</Button>
   </div>
 );
 
@@ -52,6 +52,5 @@ const Form = (props) => {
 };
 
 export default reduxForm({
-  // a unique name for the form
   form: 'chat',
 })(Form);
