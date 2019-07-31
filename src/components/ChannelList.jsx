@@ -62,27 +62,19 @@ class List extends Component {
   }
 
   render() {
-    const {
-      channels,
-      removedChannelIds,
-      renameModalVisibility,
-    } = this.props;
+    const { channels, removedChannelIds, renameModalVisibility } = this.props;
     return (
       <div>
         <h3>Channels: </h3>
         <ListGroup>
           {channels.map((channel) => {
-            if (removedChannelIds.includes(channel.id)) {
-              return '';
-            }
+            if (removedChannelIds.includes(channel.id)) { return ''; }
             return (
               <ListGroup.Item className="d-flex justify-content-between" key={channel.id}>
                 <Button variant="info" onClick={() => this.handleChannelClick(channel)}>{channel.name}</Button>
                 <div className="flex-row-reverse">
                   {this.renamedeleteDisplay(
-                    channel.removable,
-                    channel.id,
-                    renameModalVisibility,
+                    channel.removable, channel.id, renameModalVisibility,
                   )}
                 </div>
               </ListGroup.Item>
