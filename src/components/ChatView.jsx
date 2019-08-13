@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 import { Container } from 'react-bootstrap';
 import { connect } from 'react-redux';
 import ChannelCreate from './ChannelCreate';
@@ -10,6 +10,7 @@ const removedChannelChecking = (removedChannelIds, currentChannel, channels) => 
   }
   return <h3>{`Channel Title: ***${currentChannel.name}***`}</h3>;
 };
+
 
 const mapStateToProps = state => ({
   messages: state.messagesHandler.messages,
@@ -27,9 +28,9 @@ class ChatView extends Component {
       removedChannelIds,
       channels,
     } = this.props;
-    console.log('THisissss0', removedChannelIds);
+
     return (
-      <Fragment>
+      <>
         <div className="d-flex justify-content-between">
           {removedChannelChecking(removedChannelIds, currentChannel, channels)}
           <div><ChannelCreate /></div>
@@ -42,7 +43,7 @@ class ChatView extends Component {
             return '';
           })}
         </Container>
-      </Fragment>
+      </>
     );
   }
 }

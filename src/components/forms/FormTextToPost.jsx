@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { notification } from 'antd';
-import * as actionCreators1 from '../../actions';
-import * as actionCreators2 from '../../actions/channels';
+// import * as actionCreators1 from '../../actions';
+// import * as actionCreators2 from '../../actions/channels';
+import * as actionCreators from '../../actions';
+import OperationResult from '../OperationResultNotification';
 import Form from './InputText';
 import getUsername from '../UserNameContainer';
 import link from '../Link';
@@ -11,38 +12,41 @@ import link from '../Link';
 const mapStateToProps = state => ({
   messageStatus: state.messagesHandler.status,
   channel: state.channelHandler.currentChannel,
+  modalVisibility: state.messagesHandler.messageModalVisibility,
+  messagesHandler: state.messagesHandler,
+  showOnSuccess: state.messagesHandler.showOnSuccess,
+  // // state,
 });
 
-const mapActionCreatorsToProps = {
-  ...actionCreators1,
-  ...actionCreators2,
-};
+// const mapActionCreatorsToProps = {
+//   ...actionCreators1,
+//   ...actionCreators2,
+// };
 
-@connect(mapStateToProps, mapActionCreatorsToProps)
+@connect(mapStateToProps, actionCreators)
 class FormPage extends Component {
-  submit = (values) => {
+  submit = async (values) => {
     const {
       userName,
       postMessage,
       channel,
     } = this.props;
+
     postMessage({ ...values, userName }, `${link}${channel.id}/messages`);
   };
 
   render() {
-    const { messageStatus } = this.props;
-    if (messageStatus === 'failed') {
-      notification.error({
-        message: 'Message Error',
-        duration: 8,
-        placement: 'bottomRight',
-        bottom: 50,
-        description:
-        'Your text-message was not delivered. Check your connection and Try Again',
-      });
-    }
+    const {
+      messageStatus,
+      modalVisibility,
+      closeMessageModal,
+      showOnSuccess,
+    } = this.props;
     return (
-      <Form onSubmit={this.submit} messageStatus={messageStatus} />
+      <>
+        {OperationResult(messageStatus, modalVisibility, closeMessageModal, showOnSuccess)}
+        <Form onSubmit={this.submit} messageStatus={messageStatus} />
+      </>
     );
   }
 }

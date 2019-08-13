@@ -69,7 +69,6 @@ socket.on('removeChannel', (text) => {
 });
 
 socket.on('renameChannel', (text) => {
-  console.log('This is renameCHannel: ', text);
   store.dispatch(getRenamedChannel(text.data.attributes));
 });
 

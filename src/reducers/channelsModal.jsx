@@ -3,13 +3,14 @@ import * as actions from '../actions/channels';
 
 const channelModalHandler = handleActions({
   [actions.openCreateModal](state) {
-    return { ...state, createModalVisibility: true};
+    return { ...state, createModalVisibility: true };
   },
   [actions.closeModal](state) {
     return {
       ...state,
       createModalVisibility: false,
       renameModalVisibility: false,
+      deleteModalVisibility: false,
     };
   },
   [actions.openRenameModal](state, { payload }) {
@@ -17,6 +18,12 @@ const channelModalHandler = handleActions({
       ...state,
       renameModalVisibility: true,
       renameChannelId: payload,
+    };
+  },
+  [actions.openDeleteConfirmationModal](state) {
+    return {
+      ...state,
+      deleteModalVisibility: true,
     };
   },
 }, {

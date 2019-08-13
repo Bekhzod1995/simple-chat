@@ -1,12 +1,15 @@
 import React from 'react';
 import {
-  Button,
-  Input,
-} from 'antd';
-import {
   Field,
   reduxForm,
 } from 'redux-form';
+import {
+  displayInline,
+  sendIconStyle,
+  inputTextStyle,
+  submitStyle,
+  Loader,
+} from './customInputStyle';
 
 const checkCHannelStatus = ({ channelStatus }) => {
   switch (channelStatus) {
@@ -19,16 +22,22 @@ const checkCHannelStatus = ({ channelStatus }) => {
   }
 };
 
-const channelNameInput = props => (
-  <div style={{ display: 'flex' }}>
-    <Input
-      placeholder="Type message ...."
-      {...props.input}
-      allowClear
-      disabled={checkCHannelStatus(props)}
-    />
+const loading = ({ channelStatus }) => {
+  if (channelStatus === 'pending' || channelStatus === 'failed') {
+    return <><Loader /><Loader /><Loader /></>;
+  }
+  return 'Send';
+};
 
-    <Button htmlType="submit" type="primary" loading={checkCHannelStatus(props)}>Send</Button>
+
+const textInput = props => (
+  <div style={displayInline}>
+    <input style={inputTextStyle} type="text" name="firstname" placeholder="Your text..." autoFocus {...props.input} />
+    <button style={submitStyle} type="submit" value="Send" disabled={props.meta.pristine || checkCHannelStatus(props)}>
+      <span style={sendIconStyle}>
+        {loading(props)}
+      </span>
+    </button>
   </div>
 );
 
@@ -40,7 +49,7 @@ const Form = (props) => {
 
   return (
     <form onSubmit={handleSubmit} autoComplete="off">
-      <Field name="channelName" type="text" component={channelNameInput} placeholder="Enter Channel Name..." channelStatus={channelStatus} />
+      <Field name="channelName" type="text" component={textInput} placeholder="Enter Channel Name..." channelStatus={channelStatus} />
     </form>
   );
 };

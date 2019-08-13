@@ -1,18 +1,28 @@
 import { handleActions } from 'redux-actions';
+import _ from 'lodash';
 import * as actions from '../actions/channels';
 
 const channelHandler = handleActions({
-  [actions.getCurrentChannel](state, { payload }) {
+  [actions.setCurrentChannel](state, { payload }) {
     if (state.removedChannelIds.includes(payload.id)) {
       console.log('This is true');
     }
     return { ...state, currentChannel: payload };
   },
   [actions.removeChannel](state, { payload }) {
-    const { removedChannelIds } = state;
+    const arrayWithoutRenamedChannels = _.remove(
+      state.channels,
+      (channel) => {
+        if (channel.id === payload) {
+          return '';
+        }
+        return channel;
+      },
+    );
+    console.log('this channels after deletion: ', arrayWithoutRenamedChannels);
     return {
       ...state,
-      removedChannelIds: [...removedChannelIds, payload],
+      channels: [...arrayWithoutRenamedChannels],
     };
   },
   [actions.getChannel](state, { payload }) {
@@ -37,6 +47,13 @@ const channelHandler = handleActions({
     return {
       ...state,
       channels: [...messages],
+    };
+  },
+  [actions.removingChannel](state, payload) {
+    return {
+      ...state,
+      removingChannelName: payload.payload.channelName,
+      removingChannelId: payload.payload.id,
     };
   },
 }, {

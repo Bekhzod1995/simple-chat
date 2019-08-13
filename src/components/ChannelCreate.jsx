@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Button } from 'react-bootstrap';
-import * as actionCreators from '../actions/channels';
+import * as actionCreators from '../actions';
 import CreateChannel from './CreateChannel';
 
 const mapStateToProps = state => ({

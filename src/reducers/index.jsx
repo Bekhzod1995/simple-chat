@@ -23,10 +23,23 @@ const messagesHandler = handleActions({
     return {
       status: 'received',
       messages: [...messages, payload],
+      messageModalVisibility: true,
+      showOnSuccess: true,
     };
   },
   [actions.postMessageFailure](state) {
-    return { ...state, status: 'failed' };
+    return {
+      ...state,
+      status: 'failed',
+      messageModalVisibility: true,
+      showOnSuccess: false,
+    };
+  },
+  [actions.closeMessageModal](state) {
+    return {
+      ...state,
+      messageModalVisibility: false,
+    };
   },
 }, {
   messagesHandler: {

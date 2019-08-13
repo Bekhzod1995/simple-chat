@@ -1,12 +1,15 @@
 import React from 'react';
 import {
-  Button,
-  Input,
-} from 'antd';
-import {
   Field,
   reduxForm,
 } from 'redux-form';
+import {
+  displayInline,
+  sendIconStyle,
+  inputTextStyle,
+  submitStyle,
+  Loader,
+} from './customInputStyle';
 
 const checkMsgStatus = (props) => {
   switch (props.messageStatus) {
@@ -19,17 +22,22 @@ const checkMsgStatus = (props) => {
   }
 };
 
-const textInput = props => (
-  <div>
-    <Input
-      placeholder="Type message ...."
-      {...props.input}
-      allowClear
-      disabled={checkMsgStatus(props)}
-    />
 
-    <br />
-    <Button htmlType="submit" type="primary" block disabled={props.meta.pristine} loading={checkMsgStatus(props)}>Send</Button>
+const loading = ({ messageStatus }) => {
+  if (messageStatus === 'pending' || messageStatus === 'failed') {
+    return <><Loader /><Loader /><Loader /></>;
+  }
+  return 'Send';
+};
+
+const textInput = props => (
+  <div style={displayInline}>
+    <input style={inputTextStyle} type="text" name="firstname" placeholder="Your text..." autoFocus {...props.input} />
+    <button style={submitStyle} type="submit" value="Send" disabled={props.meta.pristine || checkMsgStatus(props)}>
+      <span style={sendIconStyle}>
+        {loading(props)}
+      </span>
+    </button>
   </div>
 );
 

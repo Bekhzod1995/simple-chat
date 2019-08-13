@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 import {
   Col,
   Row,
@@ -13,7 +13,7 @@ class App extends Component {
   render() {
     const { userName } = this.props;
     return (
-      <Fragment>
+      <>
         <Row>
           <Col sm={4}>
             <List />
@@ -24,7 +24,7 @@ class App extends Component {
             <FormPage />
           </Col>
         </Row>
-      </Fragment>
+      </>
     );
   }
 }

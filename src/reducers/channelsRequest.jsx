@@ -6,29 +6,29 @@ const channelRequestHandler = handleActions({
     return { channelStatus: 'pending' };
   },
   [actions.createChannelSuccess](state) {
-    return { channelStatus: 'received' };
+    return { channelStatus: 'received', modalResultVisibility: true };
   },
   [actions.createChannelFailure](state) {
-    return { channelStatus: 'failed' };
+    return { channelStatus: 'failed', modalResultVisibility: true };
   },
   [actions.renameChannelRequest](state) {
     return { channelStatus: 'pending' };
   },
   [actions.renameChannelSuccess](state) {
-    return { channelStatus: 'received' };
+    return { channelStatus: 'received', modalResultVisibility: true };
   },
   [actions.renameChannelFailure](state) {
-    return { channelStatus: 'failed' };
+    return { channelStatus: 'failed', modalResultVisibility: true };
   },
-  // [actions.deleteChannelRequest](state) {
-  //   return { ...state, channelStatus: 'pending' };
-  // },
-  // [actions.deleteChannelSuccess](state) {
-  //   return { ...state, channelStatus: 'received' };
-  // },
-  // [actions.deleteChannelFailure](state) {
-  //   return { ...state, channelStatus: 'failed' };
-  // },
+  [actions.deleteChannelSuccess](state) {
+    return { ...state, channelStatus: 'received', modalResultVisibility: true };
+  },
+  [actions.deleteChannelFailure](state) {
+    return { ...state, channelStatus: 'failed', modalResultVisibility: true };
+  },
+  [actions.closeResultModal](state) {
+    return { ...state, modalResultVisibility: false };
+  },
 }, {
   channelRequestHandler: {
     channelStatus: '',
